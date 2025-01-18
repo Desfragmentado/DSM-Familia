@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donaciones DSM</title>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=ARqeTYgfi8e4FmZycsA5X4rGrB_KslehOr6B6ZwAg3SygcKEYXrHVMCGbosTfRrw7UfHsow3wb88fbpV&currency=MXN"></script>
+</head>
+
+<body>
+    <div id="paypal-button-container"></div>    
+    
+    <script>
+        paypal.Buttons({
+            style:{
+                color:'blue',
+                shape:'pill',
+                label:'donate'
+            },
+            createOrder:function(data, action){
+                return action.order.create({
+                    purchase_units:[{
+                        amount:{
+                            value:50
+                        }
+                    }]
+                });
+            },
+
+            onApprove: function(data, actions){
+                actions.order.capture().then(function(detalles){
+                    window.location.href="Gracias.html"
+                });
+            },
+
+            onCancel: function(data){
+                alert("Donacion Cancelada :´(");
+                console.log(data);
+            }
+        }).render('#paypal-button-container');
+    </script>
+
+
+
+</body>
+</html>
